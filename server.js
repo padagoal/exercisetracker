@@ -137,11 +137,12 @@ app.post('/api/exercise/add', (req, res) => {
             newExercise.save((err, createdExercise) => {
                 if (err) return;
                 res.json({
-                    userId: userId,
+                    userId = user.id,
+                    username: user.username,
                     description: description,
                     duration: duration,
+                    _id: createdExercise._id,
                     date: createdExercise.date,
-                    _id: createdExercise._id
                 });
             });
 
