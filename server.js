@@ -116,40 +116,19 @@ let Exercise = mongoose.model('Exercise', exerciseSchema);
 
 // Add new exercise for a user
 app.post('/api/exercise/add', (req, res) => {
-    let userId = req.body.userId;
-    let description = req.body.description;
-    let duration = req.body.duration;
-    let date = req.body.date;
+    let { userId, description, duration, date } = req.body;
+    let dateObj = date === '' ? new Date() : new Date(date);
 
-    User.findOne({ _id: userId }, (err, user) => {
-        if (err) return
-        if (user) {
-            let newExercise = new Exercise({
-                userId: user._id,
-                description: description,
-                duration: duration
-            });
-            if (date.length > 0) {
-                newExercise.date = new Date(date);
-            } else {
-                newExercise.date = new Date();
-            }
-            newExercise.save((err, createdExercise) => {
-                if (err) return;
-                res.json({
-                    userId = user.id,
-                    username: user.username,
-                    description: description,
-                    duration: duration,
-                    _id: createdExercise._id,
-                    date: createdExercise.date,
-                });
-            });
-
-        }
-    });
-
-})
+    const newExercise = {
+        _id: userId,
+        description,
+        duration: +duration,
+        date: dateObj.toString().slice(0, 15),
+        username: getUsernameById(userId)
+    };
+    exercises.push(newExercise);
+    res.json(newExercise);
+});
 
 //get list of all exercises
 app.get('/api/exercise/log/:userId', (req, res) => {
