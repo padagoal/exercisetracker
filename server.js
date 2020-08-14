@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const mongoose = require('mongoose');
-const MONGO_CREDENTIALS = 'mongodb+srv://dbUserMongo:q1w2e3r4t5@cluster0.h4ukd.mongodb.net/urlshort?retryWrites=true&w=majority';
+const MONGO_CREDENTIALS = 'mongodb+srv://dbUserMongo:q1w2e3r4t5@cluster0.h4ukd.mongodb.net/tracker?retryWrites=true&w=majority';
 const uri = MONGO_CREDENTIALS;
 
 mongoose.connect(uri, {
