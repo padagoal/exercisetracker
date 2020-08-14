@@ -131,6 +131,8 @@ app.post('/api/exercise/add', (req, res) => {
             });
             if (date.length > 0) {
                 newExercise.date = new Date(date);
+            } else {
+                newExercise.date = new Date();
             }
             newExercise.save((err, createdExercise) => {
                 if (err) return;
